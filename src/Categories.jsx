@@ -6,6 +6,7 @@ import mexico from "./Assests/mexico.png";
 import china from "./Assests/china.png";
 import russia from "./Assests/russia.png";
 import spain from "./Assests/spain.png";
+import { useNavigate } from "react-router-dom";
 
 const arr = [
   {
@@ -45,14 +46,20 @@ const arr = [
   },
 ];
 const Categories = () => {
+  const navigate = useNavigate();
+  const navigateToCategory = (title) => {
+    navigate(`/categories/${title}`);
+  };
+
   return (
     <>
-      <div className="mt-10 sm:grid md:grid-cols-3 sm:grid-cols-2 hover:cursor-pointer xl:mx-40">
+      <div className="mt-10 sm:grid md:grid-cols-3 sm:grid-cols-2  xl:mx-40">
         {arr.map((item) => {
           return (
             <div
               key={item.id}
-              className="flex items-center justify-center pb-10"
+              onClick={() => navigateToCategory(item.title)}
+              className="flex items-center justify-center hover:cursor-pointer pb-10"
             >
               <p className="text-4xl absolute z-20 font-extrabold ">
                 {item.title}

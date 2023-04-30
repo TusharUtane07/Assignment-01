@@ -9,7 +9,7 @@ const Home = () => {
         Recipe Box
       </h2>
       <p className="mt-16 text-xl md:text-2xl xl:text-3xl">
-        Search your favorite recipe
+        Search your favorite food recipe
       </p>
       <div className="flex items-center justify-center border h-10 mx-7 md:mx-20 lg:mx-40 xl:mx-96 mt-3 md:mt-5  rounded-full md:h-14">
         <input
