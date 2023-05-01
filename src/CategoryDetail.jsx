@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth, database } from "./Firebase";
+import { doc, setDoc } from "firebase/firestore";
+import { toast } from "react-toastify";
 
 const CategoryDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
+  const [user, setUser] = useState();
 
   useEffect(() => {
     setLoading(true);
@@ -20,6 +25,23 @@ const CategoryDetail = () => {
 
   const navigateToDetails = (item) => {
     navigate(`/details/${item?.idMeal}`);
+  };
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (res) => {
+      setUser(res);
+    });
+  }, []);
+
+  const addToFav = async (item) => {
+    if (user?.email) {
+      await setDoc(doc(database, "recipies", `${item?.idMeal}`), {
+        item,
+      });
+      toast.success("Added successfully");
+    } else {
+      navigate("/login");
+    }
   };
 
   return (
@@ -39,15 +61,23 @@ const CategoryDetail = () => {
                 <div
                   key={item?.idMeal}
                   className="border-2 mb-10 p-5 mx-3 rounded-md sm:mx-10 md:mx-[140px] lg:mx-10 cursor-pointer"
-                  onClick={() => navigateToDetails(item)}
                 >
                   <img
                     src={item?.strMealThumb}
                     alt=""
                     className="w-60 m-auto rounded-md md:w-72"
+                    onClick={() => navigateToDetails(item)}
                   />
-                  <p className="font-bold mt-5 text-2xl">{item?.strMeal}</p>
-                  <button className="text-xl mt-5 bg-[#faeee0] text-[#343646] px-4 py-2 rounded">
+                  <p
+                    className="font-bold mt-5 text-2xl"
+                    onClick={() => navigateToDetails(item)}
+                  >
+                    {item?.strMeal}
+                  </p>
+                  <button
+                    className="text-xl mt-5 bg-[#faeee0] text-[#343646] px-4 py-2 rounded"
+                    onClick={() => addToFav(item)}
+                  >
                     Add to Favorite
                   </button>
                 </div>

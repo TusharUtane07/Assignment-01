@@ -1,12 +1,18 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ReactPlayer from "react-player/lazy";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth, database } from "./Firebase";
+import { doc, setDoc } from "firebase/firestore";
+import { toast } from "react-toastify";
 
 const SinglePage = () => {
   const { id } = useParams();
   const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
+  const [user, setUser] = useState();
+  const navigate = useNavigate();
 
   useEffect(() => {
     setLoading(true);
@@ -17,6 +23,23 @@ const SinglePage = () => {
         setLoading(false);
       });
   }, []);
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (res) => {
+      setUser(res);
+    });
+  }, []);
+
+  const addToFav = async (item) => {
+    if (user?.email) {
+      await setDoc(doc(database, "recipies", `${id}`), {
+        item,
+      });
+      toast.success("Added successfully");
+    } else {
+      navigate("/login");
+    }
+  };
 
   return (
     <>
@@ -101,7 +124,10 @@ const SinglePage = () => {
                   </div>
                 </div>
                 <div className="text-center">
-                  <button className="bg-[#faeee0] md:text-3xl lg:text-4xl lg:mt-20 text-[#393646] py-1 my-8 rounded-md m-5 px-5">
+                  <button
+                    className="bg-[#faeee0] md:text-3xl lg:text-4xl lg:mt-20 text-[#393646] py-1 my-8 rounded-md m-5 px-5"
+                    onClick={() => addToFav(item)}
+                  >
                     Add to Favorite
                   </button>
                 </div>
