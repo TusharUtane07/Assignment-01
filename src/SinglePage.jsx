@@ -100,7 +100,12 @@ const SinglePage = () => {
                     </table>
                   </div>
                 </div>
-                <p className="text-3xl mb-3 mt-10 text-center md:text-5xl md:mt-16 md:mb-8">
+                <div className="text-center">
+                  <button className="bg-[#faeee0] md:text-3xl lg:text-4xl lg:mt-20 text-[#393646] py-1 my-8 rounded-md m-5 px-5">
+                    Add to Favorite
+                  </button>
+                </div>
+                <p className="text-3xl mb-3 mt-5 text-center md:text-5xl md:mt-16 md:mb-8">
                   Instructions
                 </p>
                 <p className="text-xl text-red-500 text-center pb-4 md:pb-6 md:text-2xl md:mx-7">
@@ -110,7 +115,7 @@ const SinglePage = () => {
                 <p className="mx-3  mb-5 md:text-lg md:mx-5 md:mb-8 xl:mx-40">
                   {item.strInstructions.split("\n").map((line, index) => (
                     <p key={index}>
-                      {line} <br /> <br />
+                      {line} <br />
                     </p>
                   ))}
                 </p>
