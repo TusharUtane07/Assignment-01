@@ -6,6 +6,7 @@ import SinglePage from "./SinglePage";
 import Login from "./Login";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Account from "./Account";
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
           <Route path="/categories/:id" element={<CategoryDetail />} />
           <Route path="/details/:id" element={<SinglePage />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/account" element={<Account />} />
         </Routes>
         <ToastContainer
           position="bottom-right"

@@ -1,21 +1,23 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import {
-  getAuth,
   GoogleAuthProvider,
   onAuthStateChanged,
   signInWithPopup,
 } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import { auth } from "./Firebase";
+import { auth, database } from "./Firebase";
 import { toast } from "react-toastify";
+import { doc, setDoc } from "firebase/firestore";
 
 const Login = () => {
+  const [email, setEmail] = useState();
   let navigate = useNavigate();
   let googleProvider = new GoogleAuthProvider();
   const signIn = () => {
     signInWithPopup(auth, googleProvider)
       .then((res) => {
+        setEmail(res.user.email);
         toast.success("Signed in Successfully!!", {
           position: "bottom-right",
           autoClose: 1000,

@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import ReactPlayer from "react-player/lazy";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth, database } from "./Firebase";
-import { doc, setDoc } from "firebase/firestore";
+import { addDoc, doc } from "firebase/firestore";
 import { toast } from "react-toastify";
 
 const SinglePage = () => {
@@ -32,12 +32,13 @@ const SinglePage = () => {
 
   const addToFav = async (item) => {
     if (user?.email) {
-      await setDoc(doc(database, "recipies", `${id}`), {
-        item,
+      await addDoc(doc(database, `${user?.email}`), {
+        id: item.idMeal,
+        name: item.strMeal,
+        image: item.strMealThumb,
       });
-      toast.success("Added successfully");
     } else {
-      navigate("/login");
+      toast.info("Please sign in to save a coin to your watch list.");
     }
   };
 

@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth, database } from "./Firebase";
-import { doc, setDoc } from "firebase/firestore";
+import { addDoc, collection } from "firebase/firestore";
 import { toast } from "react-toastify";
 
 const CategoryDetail = () => {
@@ -35,14 +35,19 @@ const CategoryDetail = () => {
 
   const addToFav = async (item) => {
     if (user?.email) {
-      await setDoc(doc(database, "recipies", `${item?.idMeal}`), {
-        item,
+      await addDoc(collection(database, `${user?.email}`), {
+        id: item.idMeal,
+        name: item.strMeal,
+        image: item.strMealThumb,
       });
-      toast.success("Added successfully");
     } else {
-      navigate("/login");
+      toast.info("Please sign in to save a coin to your watch list.");
     }
   };
+
+  // setDoc(doc(database, "users", email), {
+  //   watchList: [],
+  // });
 
   return (
     <>

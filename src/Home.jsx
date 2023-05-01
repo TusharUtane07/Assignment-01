@@ -79,7 +79,15 @@ const Home = () => {
       </div>
       {name && (
         <div className="mt-5 text-2xl">
-          Welcome, <b>{name}</b>
+          Welcome,{" "}
+          <b>
+            <u
+              className="hover:cursor-pointer"
+              onClick={() => navigate("/account")}
+            >
+              {name}
+            </u>
+          </b>
         </div>
       )}
 
