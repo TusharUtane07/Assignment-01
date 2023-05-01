@@ -30,7 +30,7 @@ const CategoryDetail = () => {
             return (
               <div
                 key={item?.idMeal}
-                className="border-2 mb-10 p-5 mx-3 rounded-md sm:mx-10 md:mx-[140px] lg:mx-10"
+                className="border-2 mb-10 p-5 mx-3 rounded-md sm:mx-10 md:mx-[140px] lg:mx-10 cursor-pointer"
                 onClick={() => navigateToDetails(item)}
               >
                 <img
