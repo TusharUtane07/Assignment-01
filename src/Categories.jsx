@@ -4,7 +4,6 @@ import usa from "./Assests/usa.png";
 import france from "./Assests/france.png";
 import mexico from "./Assests/mexico.png";
 import china from "./Assests/china.png";
-import russia from "./Assests/russia.png";
 import spain from "./Assests/spain.png";
 import { useNavigate } from "react-router-dom";
 
@@ -33,11 +32,6 @@ const arr = [
     id: 5,
     title: "American",
     img: usa,
-  },
-  {
-    id: 6,
-    title: "Russian",
-    img: russia,
   },
   {
     id: 7,
@@ -79,8 +73,3 @@ const Categories = () => {
 };
 
 export default Categories;
-// const data = axios
-//     .get("https://www.themealdb.com/api/json/v1/1/filter.php?a=indian")
-//     .then((res) => {
-//       console.log(res);
-//     });

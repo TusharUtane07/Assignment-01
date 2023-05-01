@@ -1,8 +1,8 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./Home";
-import Categories from "./Categories";
 import CategoryDetail from "./CategoryDetail";
+import SinglePage from "./SinglePage";
 // https://www.themealdb.com/api/json/v1/1/search.php?s=poha
 // https://www.themealdb.com/api/json/v1/1/lookup.php?i=52807
 // https://www.themealdb.com/api/json/v1/1/filter.php?a=indian
@@ -13,6 +13,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/categories/:id" element={<CategoryDetail />} />
+          <Route path="/details/:id" element={<SinglePage />} />
         </Routes>
       </BrowserRouter>
     </div>

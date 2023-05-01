@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { AiOutlineHeart } from "react-icons/ai";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const CategoryDetail = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [data, setData] = useState();
   useEffect(() => {
     axios
@@ -14,6 +14,10 @@ const CategoryDetail = () => {
         console.log(res?.data?.meals);
       });
   }, []);
+
+  const navigateToDetails = (item) => {
+    navigate(`/details/${item?.idMeal}`);
+  };
 
   return (
     <>
@@ -26,7 +30,8 @@ const CategoryDetail = () => {
             return (
               <div
                 key={item?.idMeal}
-                className="border mb-10 p-5 mx-3 rounded-md sm:mx-10 md:mx-[140px] lg:mx-10"
+                className="border-2 mb-10 p-5 mx-3 rounded-md sm:mx-10 md:mx-[140px] lg:mx-10"
+                onClick={() => navigateToDetails(item)}
               >
                 <img
                   src={item?.strMealThumb}
